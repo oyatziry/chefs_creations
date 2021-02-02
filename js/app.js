@@ -4,23 +4,42 @@ const form = document.querySelector('form');
 
 const requestURL = 'https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&q=';
 
-const parseInputs = (url, itemArr) => {
+const parseInputs = (url, item) => {
     let parseItems = '';
+    let itemArr = item.split(", ");
     for (let i=0; i < itemArr.length; i++){
-        if(i=0){
+        if(i===0){
             parseItems += itemArr[i];
         }else{
             parseItems += `%2C%20${itemArr[i]}`;
         }
     }
-    console.log(parseItems);
+    return `${url}${parseItems}`;
 }
 
 form.addEventListener('submit', function(evt){
     evt.preventDefault();
     
     let input = document.querySelector('#input'); //need to clear input later on
-    console.log(input.value);
+    let request = parseInputs(requestURL,input.value); //parse inputted value to url so we can fetch
+    console.log(request);
+
+    fetch(request, {
+        method: "GET",
+        headers: {
+            'x-rapidapi-key': "45388f25f4msh17fcbb6e059988ep100f39jsn4c1085b3b42c",
+            'x-rapidapi-host': "tasty.p.rapidapi.com"
+        }
+    })
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(responseData){
+        console.log(responseData.results);
+    })
+    .catch((error) => {
+        console.log('ERROR: ', error);
+    })
 })
 
 
