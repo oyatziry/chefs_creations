@@ -1,9 +1,13 @@
 console.log('sanity check');
 
-const form = document.querySelector('form');
-
+//Global Variables
 const requestURL = 'https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&q=';
 
+//Element Selection
+const form = document.querySelector('form');
+const container = document.querySelector('#container');
+
+//Helper function -- parse and concatenate inputted values to url to fetch
 const parseInputs = (url, item) => {
     let parseItems = '';
     let itemArr = item.split(", ");
@@ -17,11 +21,13 @@ const parseInputs = (url, item) => {
     return `${url}${parseItems}`;
 }
 
+//Fetching requested data from user input and making divs/card for each recipe
 form.addEventListener('submit', function(evt){
     evt.preventDefault();
     
-    let input = document.querySelector('#input'); //need to clear input later on
-    let request = parseInputs(requestURL,input.value); //parse inputted value to url so we can fetch
+    let input = document.querySelector('#input'); //NOTE: need to clear input later on
+    //using helper function to parse inputted value to url so we can fetch list of recipes
+    let request = parseInputs(requestURL,input.value); 
     console.log(request);
 
     fetch(request, {
@@ -35,12 +41,42 @@ form.addEventListener('submit', function(evt){
         return response.json();
     })
     .then(function(responseData){
-        console.log(responseData.results);
+        //console.log(responseData.results); //is array
+        let recipeArray = responseData.results;
+        console.log(recipeArray);
+
+        //iterate through recipes
+        for (let i=0; i<recipeArray.length; i++){
+            //make div for each recipe
+            let recipeName = recipeArray[i].name;
+            makeDivs(i, recipeName);
+        }
     })
     .catch((error) => {
         console.log('ERROR: ', error);
     })
 })
+
+//more helper functions
+
+//make divs for each recipe object
+const makeDivs = (i, name) => {
+    const div = document.createElement('div');
+    div.setAttribute('id', i);
+    div.textContent = `This is div ${i}`;
+    container.appendChild(div);
+    //console.log(div);
+    addName(name, i, div);
+}
+
+//add name of recipe to div
+const addName = (name, i, div) =>{
+    const nameHeader = document.createElement('h2');
+    nameHeader.setAttribute('id', `name${i}`);
+    nameHeader.textContent = name;
+    div.appendChild(nameHeader);
+}
+
 
 
 // fetch((`${requestURL}bacon%2C%20egg`), { //will need to create a helper function to parse items like this
