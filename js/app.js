@@ -47,12 +47,15 @@ form.addEventListener('submit', function(evt){
 
         //iterate through recipes
         for (let i=0; i<recipeArray.length; i++){
-            //make div for each recipe
+            //get specified data from recipe array
             let recipeName = recipeArray[i].name;
+            let thumbnailURL = recipeArray[i]['thumbnail_url'];
             let recipePrepTime = recipeArray[i]['prep_time_minutes'];
             let recipeCookTime = recipeArray[i]['cook_time_minutes'];
             let recipeServingSize = recipeArray[i]['num_servings'];
-            makeDivs(i, recipeName, recipePrepTime, recipeCookTime, recipeServingSize);
+
+            //call makeDivs to start 
+            makeDivs(i, recipeName, thumbnailURL, recipePrepTime, recipeCookTime, recipeServingSize);
         }
     })
     .catch((error) => {
@@ -63,23 +66,34 @@ form.addEventListener('submit', function(evt){
 //more helper functions
 
 //make divs for each recipe object -> this will be like a card
-const makeDivs = (i, name, prepTime, cookTime, servingSize) => {
+const makeDivs = (i, name, thumbnail, prepTime, cookTime, servingSize) => {
     const div = document.createElement('div');
     div.setAttribute('class', 'card');
     div.textContent = `This is div ${i}`;
     container.appendChild(div);
     //console.log(div);
     addName(div, name);
+    addImage(div, thumbnail);
     addTimesAndServingSize(div, prepTime, cookTime, servingSize);
 }
 
 //add name of recipe to div
-const addName = (div, name) =>{
+const addName = (div, name) => {
     const nameHeader = document.createElement('h2');
     nameHeader.setAttribute('class', `names`);
     nameHeader.textContent = name;
     div.appendChild(nameHeader);
 }
+
+//add image of recipe -> Note: data sends in a url of image
+const addImage = (div, imageURL) => {
+    const img = document.createElement('img');
+    img.setAttribute('src', imageURL);
+    img.setAttribute('alt', 'Image of Recipe');
+    img.setAttribute('height', '300px');
+    div.appendChild(img);
+}
+
 //add prep time, cook time, and serving size to each card recipe
 const addTimesAndServingSize = (div, prep, cook, servings) => {
     //create inner div
