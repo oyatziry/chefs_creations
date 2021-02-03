@@ -53,9 +53,10 @@ form.addEventListener('submit', function(evt){
             let recipePrepTime = recipeArray[i]['prep_time_minutes'];
             let recipeCookTime = recipeArray[i]['cook_time_minutes'];
             let recipeServingSize = recipeArray[i]['num_servings'];
+            let recipeDescription = recipeArray[i]['description'];
 
-            //call makeDivs to start 
-            makeDivs(i, recipeName, thumbnailURL, recipePrepTime, recipeCookTime, recipeServingSize);
+            //call makeDivs to start listing recipes
+            makeDivs(i, recipeName, thumbnailURL, recipePrepTime, recipeCookTime, recipeServingSize, recipeDescription);
         }
     })
     .catch((error) => {
@@ -66,7 +67,7 @@ form.addEventListener('submit', function(evt){
 //more helper functions
 
 //make divs for each recipe object -> this will be like a card
-const makeDivs = (i, name, thumbnail, prepTime, cookTime, servingSize) => {
+const makeDivs = (i, name, thumbnail, prepTime, cookTime, servingSize, descriptions) => {
     const div = document.createElement('div');
     div.setAttribute('class', 'card');
     div.textContent = `This is div ${i}`;
@@ -75,6 +76,7 @@ const makeDivs = (i, name, thumbnail, prepTime, cookTime, servingSize) => {
     addName(div, name);
     addImage(div, thumbnail);
     addTimesAndServingSize(div, prepTime, cookTime, servingSize);
+    addRecipeDescription(div, descriptions);
 }
 
 //add name of recipe to div
@@ -120,6 +122,14 @@ const addTimesAndServingSize = (div, prep, cook, servings) => {
     logisticDiv.appendChild(servingsP);
 
     div.appendChild(logisticDiv);
+}
+
+//add description of recipe
+const addRecipeDescription = (div, description) => {
+    const des = document.createElement('p');
+    des.setAttribute('class', 'descriptions');
+    des.innerHTML = description;
+    div.appendChild(des);
 }
 
 
