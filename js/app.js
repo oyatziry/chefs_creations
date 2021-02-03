@@ -70,13 +70,13 @@ form.addEventListener('submit', function(evt){
 const makeDivs = (i, name, thumbnail, prepTime, cookTime, servingSize, descriptions) => {
     const div = document.createElement('div');
     div.setAttribute('class', 'card');
-    div.textContent = `This is div ${i}`;
+    //div.textContent = `This is div ${i}`;
     container.appendChild(div);
     //console.log(div);
     addName(div, name);
     addImage(div, thumbnail);
-    addTimesAndServingSize(div, prepTime, cookTime, servingSize);
-    addRecipeDescription(div, descriptions);
+    addTimesAndServingSize(div, prepTime, cookTime, servingSize, descriptions);
+    //addRecipeDescription(div, descriptions);
 }
 
 //add name of recipe to div
@@ -97,7 +97,7 @@ const addImage = (div, imageURL) => {
 }
 
 //add prep time, cook time, and serving size to each card recipe
-const addTimesAndServingSize = (div, prep, cook, servings) => {
+const addTimesAndServingSize = (div, prep, cook, servings, description) => {
     //create inner div
     const logisticDiv = document.createElement('div');
     logisticDiv.setAttribute('class','logistics');
@@ -106,31 +106,38 @@ const addTimesAndServingSize = (div, prep, cook, servings) => {
     //prep
     const prepP = document.createElement('p');
     prepP.setAttribute('class','prep');
-    prepP.textContent = `Estimated prep time: ${prep}`;
+    prepP.textContent = `Prep time: ${prep}`;
     //cook
     const cookP = document.createElement('p');
     cookP.setAttribute('class','cook');
-    cookP.textContent = `Estimated cook time: ${cook}`;
+    cookP.textContent = `Cook time: ${cook}`;
     //servings
     const servingsP = document.createElement('p');
     servingsP.setAttribute('class','servings');
-    servingsP.textContent = `Estimated serving size: ${servings}`;
+    servingsP.textContent = `Serving size: ${servings}`;
+
+    //description
+    const des = document.createElement('p');
+    des.setAttribute('class', 'descriptions');
+    des.innerHTML = `Description: ${description}`;
+    //div.appendChild(des);
 
     //append p to inner div and then to recipe div
     logisticDiv.appendChild(prepP);
     logisticDiv.appendChild(cookP);
     logisticDiv.appendChild(servingsP);
+    logisticDiv.appendChild(des);
 
     div.appendChild(logisticDiv);
 }
 
 //add description of recipe
-const addRecipeDescription = (div, description) => {
-    const des = document.createElement('p');
-    des.setAttribute('class', 'descriptions');
-    des.innerHTML = description;
-    div.appendChild(des);
-}
+// const addRecipeDescription = (div, description) => {
+//     const des = document.createElement('p');
+//     des.setAttribute('class', 'descriptions');
+//     des.innerHTML = description;
+//     div.appendChild(des);
+// }
 
 
 

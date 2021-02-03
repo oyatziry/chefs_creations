@@ -1,3 +1,73 @@
+body{
+    background-color: #fbf1e3;
+    margin: 2%;
+}
+
 h1{
+    color: burlywood;
+}
+
+form{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    margin: 5%;
+    margin-top: 0;
+}
+
+.card{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 50px auto;
+    grid-template-areas: 
+        "h2 h2"
+        "img logistics";
+    background-color: antiquewhite;
+    /* border-radius: 25px; */
+    box-shadow: 5px 5px 5px grey;
+    margin-top: 30px;
+    padding: 0 10px 10px;
+}
+
+.names{
+    grid-area: h2;
+    padding-left: 10px;
+}
+
+img{
+    grid-area: img;
+    margin: auto;
+    margin-top: 5px;
+    border-radius: 25px;
+}
+
+.logistics{
+    grid-area: logistics;
+    /* display: flex;
+    flex-direction: row;
+    justify-content: space-evenly; */
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.descriptions{
+    grid-area: logistics;
+    /* display: flex;
+    flex-flow: row wrap;
+    align-self: flex-end; */
+}
+
+a{
+    text-decoration: none;
     color: palevioletred;
+    font-style: italic;
+}
+
+a:hover{
+    text-decoration: underline;
+    color: blueviolet;
 }
