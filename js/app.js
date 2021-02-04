@@ -157,6 +157,11 @@ const addTimesAndServingSize = (div, prep, cook, servings, description, arrInstr
         const modalContent = document.createElement('div');
         modalContent.setAttribute('class','modal-content');
 
+        //add header to modal div
+        const modalHeader = document.createElement('h2');
+        modalHeader.setAttribute('class', 'modal-header');
+        modalHeader.textContent = `Let's start creating!`;
+
         //add instruction list to modal div
         //Note: instructions are in an array of objects so we need to iterate to get each step
         const list = document.createElement('ol');
@@ -169,6 +174,7 @@ const addTimesAndServingSize = (div, prep, cook, servings, description, arrInstr
         }
 
         //append everything
+        modalContent.appendChild(modalHeader);
         modalContent.appendChild(list);
         modalDiv.appendChild(modalContent);
         document.querySelector('body').appendChild(modalDiv);
