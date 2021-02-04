@@ -122,13 +122,60 @@ const addTimesAndServingSize = (div, prep, cook, servings, description) => {
     des.innerHTML = `Description: ${description}`;
     //div.appendChild(des);
 
+    //create modal button
+    const modalBtn = document.createElement('button');
+    modalBtn.setAttribute('id', 'modal-button');
+    modalBtn.textContent = "Let's start creating!";
+
     //append p to inner div and then to recipe div
     logisticDiv.appendChild(prepP);
     logisticDiv.appendChild(cookP);
     logisticDiv.appendChild(servingsP);
     logisticDiv.appendChild(des);
+    logisticDiv.appendChild(modalBtn);
 
     div.appendChild(logisticDiv);
+
+    //create modal
+    modalBtn.onclick = function(){
+        console.log('modal button clicked!');
+        //create modal div
+        const modalDiv = document.createElement('div');
+        modalDiv.setAttribute('class', 'modal-div');
+
+        //create modal div for content
+        const modalContent = document.createElement('div');
+        modalContent.setAttribute('class','modal-content');
+        //add closing span
+        // const closeSpan = document.createElement('span');
+        // closeSpan.setAttribute('class','close');
+        // closeSpan.innerHTML = `&times;`;
+        //add text to modal div
+        const modalP = document.createElement('p');
+        modalP.setAttribute('class','text');
+        modalP.textContent = 'Text for modal';
+
+        //append everything
+        modalContent.appendChild(modalP);
+        // modalContent.appendChild(closeSpan)
+        modalDiv.appendChild(modalContent);
+        document.querySelector('body').appendChild(modalDiv);
+
+        //open modal
+        modalDiv.style.display = 'block';
+
+        //close modal
+        // closeSpan.onclick = function(){
+        //     modalDiv.style.display = 'none';
+        // }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modalDiv) {
+                modalDiv.style.display = "none";
+            }
+        }
+    };
 }
 
 //add description of recipe
