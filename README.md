@@ -5,7 +5,6 @@
 ## Project Screenshots:
 
 
-***
 
 ## Technologies:
 
@@ -16,7 +15,6 @@
 - Command Line
 - Github
 
-***
 
 ## User Stories
 
@@ -35,12 +33,10 @@
 - As a user, I would like an indicator, like a progress ring, to let me know my recipe ideas are being processed. 
 - As a user, I would like to open this page and have it formatted well on mobile. 
 
-***
 
 ## Wireframes:
 
 
-***
 
 ## Unsolved Problems or Major Hurdles
 
