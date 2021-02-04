@@ -106,19 +106,23 @@ const addTimesAndServingSize = (div, prep, cook, servings, description) => {
     //prep
     const prepP = document.createElement('p');
     prepP.setAttribute('class','prep');
+    prep = changeNullOrUndefined(prep);
     prepP.textContent = `Prep time: ${prep}`;
     //cook
     const cookP = document.createElement('p');
     cookP.setAttribute('class','cook');
+    cook = changeNullOrUndefined(cook);
     cookP.textContent = `Cook time: ${cook}`;
     //servings
     const servingsP = document.createElement('p');
     servingsP.setAttribute('class','servings');
+    servings = changeNullOrUndefined(servings);
     servingsP.textContent = `Serving size: ${servings}`;
 
     //description
     const des = document.createElement('p');
     des.setAttribute('class', 'descriptions');
+    description = changeNullOrUndefined(description);
     des.innerHTML = `Description: ${description}`;
     //div.appendChild(des);
 
@@ -176,6 +180,22 @@ const addTimesAndServingSize = (div, prep, cook, servings, description) => {
             }
         }
     };
+}
+
+//checks if API is return null, undefined, or empty string and changes to N/A
+const changeNullOrUndefined = (text) => {
+    if(text === null){
+        return 'N/A';
+    }
+    else if(text === undefined){
+        return 'N/A';
+    }
+    else if(text === ""){
+        return 'N/A';
+    }
+    else{
+        return text;
+    }
 }
 
 //add description of recipe
