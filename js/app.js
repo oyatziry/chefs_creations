@@ -24,6 +24,9 @@ const parseInputs = (url, item) => {
 //Fetching requested data from user input and making divs/card for each recipe
 form.addEventListener('submit', function(evt){
     evt.preventDefault();
+
+    //if user submits another request, clear current recipes on container
+    container.innerHTML = "";
     
     let input = document.querySelector('#input'); //NOTE: need to clear input later on
     //using helper function to parse inputted value to url so we can fetch list of recipes
@@ -136,6 +139,7 @@ const addTimesAndServingSize = (div, prep, cook, servings, description, arrInstr
     const modalBtn = document.createElement('button');
     modalBtn.setAttribute('id', 'modal-button');
     modalBtn.textContent = "Let's start creating!";
+    modalBtn.style.marginBottom = '10px';
 
     //append p to inner div and then to recipe div
     logisticDiv.appendChild(prepP);
