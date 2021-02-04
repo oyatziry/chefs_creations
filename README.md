@@ -1,7 +1,5 @@
 # chefs_creations
 
-***
-
 ## Project Screenshots:
 
 
