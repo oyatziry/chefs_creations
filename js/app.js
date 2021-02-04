@@ -30,12 +30,13 @@ form.addEventListener('submit', function(evt){
     let request = parseInputs(requestURL,input.value); 
     console.log(request);
 
-    //change css so container with div recipe cards can fit
+    //change landing page css so container with div recipe cards can fit
     document.querySelector('body').style.backgroundColor = '#fbf1e3';
     document.querySelector('body').style.display = 'revert';
     form.style.display = 'flex';
     form.style.justifyContent = 'flex-end';
 
+    //Getting/fetching data from Tasty API
     fetch(request, {
         method: "GET",
         headers: {
@@ -60,9 +61,10 @@ form.addEventListener('submit', function(evt){
             let recipeCookTime = recipeArray[i]['cook_time_minutes'];
             let recipeServingSize = recipeArray[i]['num_servings'];
             let recipeDescription = recipeArray[i]['description'];
+            let recipeInstructionsArr = recipeArray[i]['instructions']; //will return array of objects
 
             //call makeDivs to start listing recipes
-            makeDivs(i, recipeName, thumbnailURL, recipePrepTime, recipeCookTime, recipeServingSize, recipeDescription);
+            makeDivs(i, recipeName, thumbnailURL, recipePrepTime, recipeCookTime, recipeServingSize, recipeDescription, recipeInstructionsArr);
         }
     })
     .catch((error) => {
@@ -73,16 +75,14 @@ form.addEventListener('submit', function(evt){
 //more helper functions
 
 //make divs for each recipe object -> this will be like a card
-const makeDivs = (i, name, thumbnail, prepTime, cookTime, servingSize, descriptions) => {
+const makeDivs = (i, name, thumbnail, prepTime, cookTime, servingSize, descriptions, instructionsArr) => {
     const div = document.createElement('div');
     div.setAttribute('class', 'card');
-    //div.textContent = `This is div ${i}`;
     container.appendChild(div);
-    //console.log(div);
+    //helper functions to add text and image to each Recipe div
     addName(div, name);
     addImage(div, thumbnail);
-    addTimesAndServingSize(div, prepTime, cookTime, servingSize, descriptions);
-    //addRecipeDescription(div, descriptions);
+    addTimesAndServingSize(div, prepTime, cookTime, servingSize, descriptions, instructionsArr);
 }
 
 //add name of recipe to div
@@ -103,7 +103,7 @@ const addImage = (div, imageURL) => {
 }
 
 //add prep time, cook time, and serving size to each card recipe
-const addTimesAndServingSize = (div, prep, cook, servings, description) => {
+const addTimesAndServingSize = (div, prep, cook, servings, description, arrInstructions) => {
     //create inner div
     const logisticDiv = document.createElement('div');
     logisticDiv.setAttribute('class','logistics');
@@ -156,28 +156,25 @@ const addTimesAndServingSize = (div, prep, cook, servings, description) => {
         //create modal div for content
         const modalContent = document.createElement('div');
         modalContent.setAttribute('class','modal-content');
-        //add closing span
-        // const closeSpan = document.createElement('span');
-        // closeSpan.setAttribute('class','close');
-        // closeSpan.innerHTML = `&times;`;
-        //add text to modal div
-        const modalP = document.createElement('p');
-        modalP.setAttribute('class','text');
-        modalP.textContent = 'Text for modal';
+
+        //add instruction list to modal div
+        //Note: instructions are in an array of objects so we need to iterate to get each step
+        const list = document.createElement('ol');
+        list.setAttribute('class', 'instructions-list');
+        for(let j=0; j<arrInstructions.length; j++){
+            const li = document.createElement('li');
+            li.setAttribute('class','instruction-li');
+            li.textContent = arrInstructions[j]['display_text'];
+            list.appendChild(li);
+        }
 
         //append everything
-        modalContent.appendChild(modalP);
-        // modalContent.appendChild(closeSpan)
+        modalContent.appendChild(list);
         modalDiv.appendChild(modalContent);
         document.querySelector('body').appendChild(modalDiv);
 
         //open modal
         modalDiv.style.display = 'block';
-
-        //close modal
-        // closeSpan.onclick = function(){
-        //     modalDiv.style.display = 'none';
-        // }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
@@ -204,14 +201,6 @@ const changeNullOrUndefined = (text) => {
     }
 }
 
-//add description of recipe
-// const addRecipeDescription = (div, description) => {
-//     const des = document.createElement('p');
-//     des.setAttribute('class', 'descriptions');
-//     des.innerHTML = description;
-//     div.appendChild(des);
-// }
-
 
 
 // fetch((`${requestURL}bacon%2C%20egg`), { //will need to create a helper function to parse items like this
@@ -233,6 +222,7 @@ const changeNullOrUndefined = (text) => {
 //     //     //console.log(resData.results[i]['cook_time_minutes']); //cook time -> set default to n/a
 //     //     //console.log(resData.results[i]['num_servings']); //num of servings
 //     //     //console.log(resData.results[0].instructions[0]['display_text']); //first step in instructions, diff per recipe -> will need to do a loop
+            // console.log(resData.results[i].instructions[j]['display_text']);
 //     // } 
 // })
 // .catch((error) => {
