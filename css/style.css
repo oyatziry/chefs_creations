@@ -1,10 +1,9 @@
 body{
-    background-color: goldenrod;
     margin: 2%;
-    /* new */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 100px 250px;
+    background-color: goldenrod;
 }
 
 h1{
@@ -15,9 +14,6 @@ h1{
 }
 
 form{
-    /* display: flex;
-    justify-content: flex-end; */
-    /* new */
     grid-row-start: 3;
     grid-column-start: 2;
     justify-self: center;
@@ -49,9 +45,7 @@ input[type="submit"]:hover{
     background-color: white;
     line-height: 1.6;
     border-radius: 20px;
-    /* box-shadow: 2px 2px 10px grey; */
     margin-top: 40px;
-    /* padding: 0 10px 10px; */
 }
 
 .card:hover{
@@ -119,7 +113,6 @@ from W3Schools.com */
     margin: auto;
     padding: 20px;
     border-radius: 20px;
-    /* border: 1px solid #888; */
     width: 80%;
   }
 
@@ -132,4 +125,17 @@ from W3Schools.com */
 
   #modal-button:hover{
       box-shadow: 1px 1px 5px grey;
+  }
+
+  @media only screen and (min-width: 900px){
+      body{
+          margin: 5%;
+      }
+      h1{
+          font-size: 3em;
+      }
+      #container{
+          margin: 10%;
+          margin-top: 2%;
+      }
   }

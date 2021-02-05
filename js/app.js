@@ -1,5 +1,3 @@
-console.log('sanity check');
-
 //Global Variables
 const requestURL = 'https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&q=';
 
@@ -28,10 +26,9 @@ form.addEventListener('submit', function(evt){
     //if user submits another request, clear current recipes on container
     container.innerHTML = "";
     
-    let input = document.querySelector('#input'); //NOTE: need to clear input later on
+    let input = document.querySelector('#input'); 
     //using helper function to parse inputted value to url so we can fetch list of recipes
     let request = parseInputs(requestURL,input.value); 
-    console.log(request);
 
     //clear input form after submit
     input.value = "";
@@ -40,10 +37,11 @@ form.addEventListener('submit', function(evt){
     document.querySelector('body').style.backgroundColor = '#f8f8f8';
     document.querySelector('body').style.display = 'revert';
     document.querySelector('h1').style.color = 'goldenrod';
+    document.querySelector('h1').style.textShadow = '1px 1px 5px lightgrey';
     form.style.display = 'flex';
     form.style.justifyContent = 'flex-end';
 
-    //Getting/fetching data from Tasty API
+    //Fetching data from Tasty API
     fetch(request, {
         method: "GET",
         headers: {
@@ -55,9 +53,7 @@ form.addEventListener('submit', function(evt){
         return response.json();
     })
     .then(function(responseData){
-        //console.log(responseData.results); //is array
         let recipeArray = responseData.results;
-        console.log(recipeArray);
 
         //iterate through recipes
         for (let i=0; i<recipeArray.length; i++){
@@ -70,7 +66,7 @@ form.addEventListener('submit', function(evt){
             let recipeDescription = recipeArray[i]['description'];
             let recipeInstructionsArr = recipeArray[i]['instructions']; //will return array of objects
 
-            //call makeDivs to start listing recipes
+            //call makeDivs to start listing recipes in divs
             makeDivs(i, recipeName, thumbnailURL, recipePrepTime, recipeCookTime, recipeServingSize, recipeDescription, recipeInstructionsArr);
         }
     })
@@ -86,10 +82,11 @@ const makeDivs = (i, name, thumbnail, prepTime, cookTime, servingSize, descripti
     const div = document.createElement('div');
     div.setAttribute('class', 'card');
     container.appendChild(div);
+
     //helper functions to add text and image to each Recipe div
     addName(div, name);
     addImage(div, thumbnail);
-    addTimesAndServingSize(div, prepTime, cookTime, servingSize, descriptions, instructionsArr);
+    addRecipeInfo(div, prepTime, cookTime, servingSize, descriptions, instructionsArr);
 }
 
 //add name of recipe to div
@@ -109,8 +106,8 @@ const addImage = (div, imageURL) => {
     div.appendChild(img);
 }
 
-//add prep time, cook time, and serving size to each card recipe
-const addTimesAndServingSize = (div, prep, cook, servings, description, arrInstructions) => {
+//add prep time, cook time, serving size, description, and instructions to each card recipe
+const addRecipeInfo = (div, prep, cook, servings, description, arrInstructions) => {
     //create inner div
     const logisticDiv = document.createElement('div');
     logisticDiv.setAttribute('class','logistics');
@@ -149,13 +146,12 @@ const addTimesAndServingSize = (div, prep, cook, servings, description, arrInstr
     logisticDiv.appendChild(cookP);
     logisticDiv.appendChild(servingsP);
     logisticDiv.appendChild(des);
-    logisticDiv.appendChild(modalBtn);
+    logisticDiv.appendChild(modalBtn); //also appending modal button
 
     div.appendChild(logisticDiv);
 
     //create modal
     modalBtn.onclick = function(){
-        console.log('modal button clicked!');
         //create modal div
         const modalDiv = document.createElement('div');
         modalDiv.setAttribute('class', 'modal-div');
@@ -168,7 +164,7 @@ const addTimesAndServingSize = (div, prep, cook, servings, description, arrInstr
         const modalHeader = document.createElement('h2');
         modalHeader.setAttribute('class', 'modal-header');
         modalHeader.textContent = `Let's start creating!`;
-        modalContent.appendChild(modalHeader); //appending here so will display header before modalP in the case there is no instructions
+        modalContent.appendChild(modalHeader); //appending here so will display header before modalP in the case when there is no instructions
 
         //let user know there is no instructions if API returns undefined
         const undModal = () => {
@@ -182,10 +178,11 @@ const addTimesAndServingSize = (div, prep, cook, servings, description, arrInstr
         //Note: instructions are in an array of objects so we need to iterate to get each step
         const list = document.createElement('ol');
         list.setAttribute('class', 'instructions-list');
-        if (arrInstructions === undefined){
+        //if no instructions, call undModal to let user know
+        if (arrInstructions === undefined){ 
             undModal();
         }
-        else{
+        else{ //otherwise, add instructions in list form
             for(let j=0; j<arrInstructions.length; j++){
                 const li = document.createElement('li');
                 li.setAttribute('class','instruction-li');
@@ -211,7 +208,7 @@ const addTimesAndServingSize = (div, prep, cook, servings, description, arrInstr
     };
 }
 
-//checks if API is return null, undefined, or empty string and changes to N/A
+//checks if API is return null, undefined, or empty string and changes to N/A to keep consistency
 const changeNullOrUndefined = (text) => {
     if(text === null){
         return 'N/A';
@@ -227,30 +224,4 @@ const changeNullOrUndefined = (text) => {
     }
 }
 
-
-
-// fetch((`${requestURL}bacon%2C%20egg`), { //will need to create a helper function to parse items like this
-// 	method: "GET",
-// 	headers: {
-// 		'x-rapidapi-key': "45388f25f4msh17fcbb6e059988ep100f39jsn4c1085b3b42c",
-// 		'x-rapidapi-host': "tasty.p.rapidapi.com"
-// 	}
-// })
-// .then(function(res){
-//     return res.json();
-// })
-// .then(function(resData){
-//     console.log(resData.results);
-//     // for(let i=0; i< resData.results.length; i++){
-//     //     //console.log(resData.results[i].name); gets name of recipe
-//     //     //console.log(resData.results[i]['thumbnail_url']); //thumbnail url
-//     //     //console.log(resData.results[i]['prep_time_minutes']); //prep time -> a lot come out as null so set a default to N/A
-//     //     //console.log(resData.results[i]['cook_time_minutes']); //cook time -> set default to n/a
-//     //     //console.log(resData.results[i]['num_servings']); //num of servings
-//     //     //console.log(resData.results[0].instructions[0]['display_text']); //first step in instructions, diff per recipe -> will need to do a loop
-            // console.log(resData.results[i].instructions[j]['display_text']);
-//     // } 
-// })
-// .catch((error) => {
-//     console.log('ERROR: ', error);
-// })
+//END of my first API project =D
