@@ -37,8 +37,9 @@ form.addEventListener('submit', function(evt){
     input.value = "";
 
     //change landing page css so container with div recipe cards can fit
-    document.querySelector('body').style.backgroundColor = '#fbf1e3';
+    document.querySelector('body').style.backgroundColor = '#f8f8f8';
     document.querySelector('body').style.display = 'revert';
+    document.querySelector('h1').style.color = 'goldenrod';
     form.style.display = 'flex';
     form.style.justifyContent = 'flex-end';
 
