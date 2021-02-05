@@ -136,7 +136,6 @@ const addTimesAndServingSize = (div, prep, cook, servings, description, arrInstr
     des.setAttribute('class', 'descriptions');
     description = changeNullOrUndefined(description);
     des.innerHTML = `Description: ${description}`;
-    //div.appendChild(des);
 
     //create modal button
     const modalBtn = document.createElement('button');
@@ -168,20 +167,33 @@ const addTimesAndServingSize = (div, prep, cook, servings, description, arrInstr
         const modalHeader = document.createElement('h2');
         modalHeader.setAttribute('class', 'modal-header');
         modalHeader.textContent = `Let's start creating!`;
+        modalContent.appendChild(modalHeader); //appending here so will display header before modalP in the case there is no instructions
+
+        //let user know there is no instructions if API returns undefined
+        const undModal = () => {
+            const modalP = document.createElement('p');
+            modalP.setAttribute('class','no-instructions');
+            modalP.textContent = "Sorry, no instructions available.";
+            modalContent.appendChild(modalP);
+        }
 
         //add instruction list to modal div
         //Note: instructions are in an array of objects so we need to iterate to get each step
         const list = document.createElement('ol');
         list.setAttribute('class', 'instructions-list');
-        for(let j=0; j<arrInstructions.length; j++){
-            const li = document.createElement('li');
-            li.setAttribute('class','instruction-li');
-            li.textContent = arrInstructions[j]['display_text'];
-            list.appendChild(li);
+        if (arrInstructions === undefined){
+            undModal();
+        }
+        else{
+            for(let j=0; j<arrInstructions.length; j++){
+                const li = document.createElement('li');
+                li.setAttribute('class','instruction-li');
+                li.textContent = arrInstructions[j]['display_text'];
+                list.appendChild(li);
+            }
         }
 
         //append everything
-        modalContent.appendChild(modalHeader);
         modalContent.appendChild(list);
         modalDiv.appendChild(modalContent);
         document.querySelector('body').appendChild(modalDiv);
