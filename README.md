@@ -39,9 +39,13 @@
 
 ## Unsolved Problems or Major Hurdles
 
-Inconsistency among the API, pushed me to change my inital wireframe a bit. 
-I also had to build several helper functions to handle null, undefined, or empty strings returned by the API.
-
 Due to the inconsistency of the API, my web application does not currently fetch ingredients because I was running
-into problems accessing them in the fetch.
+into problems iterating and accessing them. As a continuation of my project, I would like to get this component onto the webpage.
+
+Inconsistency among the API also pushed me to change my inital wireframe a bit. I built helper functions 
+to handle null, undefined, or empty strings returned by the API to help me with this issue.
+
+At times, my application may take a while to load leaving the user with uncertainty as to whether their data will be returned or
+if the webpage "bugged out". As a continuation, I would like to build a progress ring or animation for that loading time.
+
 
