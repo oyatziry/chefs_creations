@@ -5,6 +5,11 @@
 
 ![landing-page2](https://user-images.githubusercontent.com/28818219/107005338-6b443000-6744-11eb-8511-379bc88332ff.png "Landing Page")
 
+![recipe-lists2](https://user-images.githubusercontent.com/28818219/107005564-b8280680-6744-11eb-88c3-65ab5b24f8ff.png "Recipe List")
+
+![modal-div](https://user-images.githubusercontent.com/28818219/107005648-d8f05c00-6744-11eb-99b2-95c949628cca.png "Modal Div")
+
+
 ## Technologies:
 
 - HTML
