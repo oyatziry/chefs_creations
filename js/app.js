@@ -33,6 +33,9 @@ form.addEventListener('submit', function(evt){
     let request = parseInputs(requestURL,input.value); 
     console.log(request);
 
+    //clear input form after submit
+    input.value = "";
+
     //change landing page css so container with div recipe cards can fit
     document.querySelector('body').style.backgroundColor = '#fbf1e3';
     document.querySelector('body').style.display = 'revert';
