@@ -40,7 +40,9 @@
 
 ## Wireframes:
 
+![landing-page](https://user-images.githubusercontent.com/28818219/107005729-fd4c3880-6744-11eb-83de-3a776addc3d3.jpg "Wireframe Landing Page")
 
+![recipe-lists](https://user-images.githubusercontent.com/28818219/107005787-11903580-6745-11eb-8091-3aec5735ee99.jpg "Wireframe Recipe List")
 
 ## Unsolved Problems or Major Hurdles
 
