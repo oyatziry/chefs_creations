@@ -3,7 +3,7 @@
 
 ## Project Screenshots:
 
-![landing-page2](https://user-images.githubusercontent.com/28818219/107005338-6b443000-6744-11eb-8511-379bc88332ff.png "Landing Page)
+![landing-page2](https://user-images.githubusercontent.com/28818219/107005338-6b443000-6744-11eb-8511-379bc88332ff.png "Landing Page")
 
 ## Technologies:
 
