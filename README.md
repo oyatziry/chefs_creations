@@ -1,5 +1,9 @@
 # Chefs Creations
 
+Chef’s Creations is a website users can go to for recipe inspiration given the current pantry items they have available. Users will be able to add their food items in a form section and the algorithm would return a list of recipe ideas they could make given the inputted food items.
+
+http://www.yatziryortiz.com/chefs_creations/
+
 
 ## Project Screenshots:
 
